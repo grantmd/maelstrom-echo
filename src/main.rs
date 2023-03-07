@@ -8,6 +8,7 @@ struct MessageBody {
     msg_id: u128,
     #[serde(default)]
     in_reply_to: u128,
+    #[serde(default)]
     echo: String,
 }
 
@@ -26,6 +27,10 @@ async fn  main() -> io::Result<()> {
         eprint!("Received: {}", buffer);
 
         let mut msg: Message = serde_json::from_str(&buffer)?;
+        if msg.body.msg_type != "echo" {
+            eprintln!("Skipping");
+            continue;
+        }
 
         let src = msg.src;
         let dest = msg.dest;
