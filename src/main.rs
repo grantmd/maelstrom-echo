@@ -16,7 +16,7 @@ struct MessageBody {
     #[serde(default)]
     in_reply_to: u128,
 
-    #[serde(default)]
+    #[serde(default, skip_serializing)]
     node_id: String,
 
     #[serde(default)]
